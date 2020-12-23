@@ -14,7 +14,11 @@
 <body>
   <h1>UNITED STATES POLLING</h1>
   <hr>
+  {% if not user.is_authenticated %}
   <div><a href="{% url 'login' %}">Log In</a></div>
+  {% else %}
+  <div><a href="{% url 'logout' %}">Log Out</a></div>
+  {% endif %}
   <div><a href="{% url 'signup' %}">Sign Up</a></div>
 </body>
 </html>
