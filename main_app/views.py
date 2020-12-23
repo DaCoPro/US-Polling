@@ -14,6 +14,11 @@ def polls_index(request):
   polls = Poll.objects.all()
   return render(request, 'polls/index.html', {'polls': polls})
 
+@login_required
+def polls_detail(request, poll_id):
+  poll = Poll.objects.get(id=poll_id)
+  return render(request, 'polls/detail.html', {'poll': poll})
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
