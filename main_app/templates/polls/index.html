@@ -4,9 +4,8 @@
 <h1>All Polls</h1>
 
 {% for poll in polls %}
-  <div>{{ poll.title }}</div>
+  <div><a href="{% url 'detail' poll.id %}">{{ poll.title }}</a></div>
   <div>{{ poll.abstract }}</div>
-  <div>{{ poll.content }}</div>
 {% endfor %}
 
 {% endblock %}
