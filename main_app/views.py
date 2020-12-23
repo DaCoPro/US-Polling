@@ -4,8 +4,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from .models import Poll
+
 def home(request):
   return render(request, 'home.html')
+
+@login_required
+def polls_index(request):
+  polls = Poll.objects.all()
+  return render(request, 'polls/index.html', {'polls': polls})
 
 def signup(request):
   error_message = ''
