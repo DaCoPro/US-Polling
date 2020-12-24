@@ -7,4 +7,6 @@
 <div>{{ poll.abstract }}</div>
 <div>{{ poll.content }}</div>
 
+
+<a href="{% url 'polls_delete' poll.id %}">Delete?</a>
 {% endblock %}

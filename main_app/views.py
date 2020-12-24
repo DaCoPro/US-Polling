@@ -16,6 +16,10 @@ class PollCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
+class PollDelete(LoginRequiredMixin, DeleteView):
+  model = Poll
+  success_url = '/polls/'
+
 def home(request):
   return render(request, 'home.html')
 
