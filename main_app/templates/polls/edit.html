@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Poll Question</h1>
+
+
+<div class="col s6">
+
+<div><h4>{{ poll.title }}</h4></div>
+<div>{{ poll.abstract }}</div>
+<div>{{ poll.content }}</div>
+</div>
+
+
+<div class="col s6">
+    <form action="{% url 'add_question' poll.id %}" method="POST">
+      {% csrf_token %}
+      <table>
+          {{ question_form.as_p  }}
+      </table>
+      <!-- {{ question.question }} -->
+      <input type="submit" value="Add question" class="btn">
+    </form>
+    <br>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Questions</th>
+          <th>Choice</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for question in poll.question_set.all %}
+        <tr>
+          <td>{{question.question}}</td>
+          <td>{{question.get_meal_display}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>    
+
+
+
+
+<a href="{% url 'polls_delete' poll.id %}">Delete?</a>
+{% endblock %}
