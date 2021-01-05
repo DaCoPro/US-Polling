@@ -60,8 +60,12 @@ def add_question(request, poll_id):
     new_question.save()
   return redirect('edit', poll_id=poll_id)
 
-
-
+@login_required
+def polls_publish(request, poll_id):
+  poll = Poll.objects.get(id=poll_id)
+  poll.published = True
+  poll.save()
+  return render(request, 'polls/detail.html', {'poll': poll})
 
 def signup(request):
   error_message = ''
