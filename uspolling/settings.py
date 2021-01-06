@@ -121,3 +121,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/polls/'
 LOGOUT_REDIRECT_URL = '/'
+
+# configure the django app for heroku deployment
+import django_heroku
+django_heroku.settings( locals() )

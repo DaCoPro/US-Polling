@@ -34,7 +34,9 @@ def polls_index(request):
 def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
   userId = request.user
+  
   hasVoted = poll.hasVoted.split('&')
+  
   return render(request, 'polls/detail.html', {'poll': poll,'userId':str(userId.id),'hasVoted':hasVoted})
 
 @login_required
