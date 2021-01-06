@@ -33,7 +33,9 @@ def polls_index(request):
 @login_required
 def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
-  return render(request, 'polls/detail.html', {'poll': poll})
+  userId = request.user
+  hasVoted = poll.hasVoted.split('&')
+  return render(request, 'polls/detail.html', {'poll': poll,'userId':str(userId.id),'hasVoted':hasVoted})
 
 @login_required
 def polls_edit(request, poll_id):
@@ -82,10 +84,13 @@ def submit_poll(request, poll_id):
   new_response.response = allresponse
   new_response.poll_id = poll_id
   new_response.save() 
+
+  poll.hasVoted += '&'+str(request.user.id)
+  poll.save()
   #print(data[-1])
   print(allresponse)
   #print(request.body)
-  return render(request, 'polls/detail.html', {'poll': poll})
+  return redirect('detail', poll_id = poll_id)
 
 def signup(request):
   error_message = ''
