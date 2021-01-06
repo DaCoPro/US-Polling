@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Poll
+from .models import *
 from .forms import QuestionForm
 from .forms import ResponseForm
 
@@ -33,11 +33,32 @@ def polls_index(request):
 @login_required
 def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
+  #cache for updating has_votes property
   userId = request.user
   
   hasVoted = poll.hasVoted.split('&')
+
+  #cache for results
+  try:
+    poll_response = []
+    responses = Response.objects.filter(poll=poll_id)
+   
+    for idx, x in enumerate(responses[0].response):
+      yes = 0
+      no = 0
+      idc = 0
+      
+      for response in responses:
+        question = response.response[idx]
   
-  return render(request, 'polls/detail.html', {'poll': poll,'userId':str(userId.id),'hasVoted':hasVoted})
+        if question == '0': yes += 1
+        if question == '1': no += 1
+        if question == '2': idc += 1
+      poll_response.append([yes, no, idc])
+    # responses = poll_response
+  except:
+    responses = 'No Responses Yet'
+  return render(request, 'polls/detail.html', {'poll': poll,'userId':str(userId.id),'hasVoted':hasVoted, 'poll_response':poll_response})
 
 @login_required
 def polls_edit(request, poll_id):
