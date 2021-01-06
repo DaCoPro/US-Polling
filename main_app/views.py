@@ -35,7 +35,9 @@ def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
   #cache for updating has_votes property
   userId = request.user
+  
   hasVoted = poll.hasVoted.split('&')
+
   #cache for results
   try:
     poll_response = []
