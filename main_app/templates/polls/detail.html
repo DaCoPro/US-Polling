@@ -7,6 +7,27 @@
 <div>{{ poll.abstract }}</div>
 <div>{{ poll.content }}</div>
 
+{% if not userId in hasVoted %}
 
-<a href="{% url 'polls_delete' poll.id %}">Delete?</a>
+<form action="{% url 'submit_poll' poll.id %}" method="POST">
+  {% csrf_token %}
+  {% for question in poll.question_set.all %}
+    <div>{{ question.question }}</div>
+      <label>
+        <input name="response{{question.id}}" type="radio" value="1"/>
+        <span>Yes</span>
+      </label>
+      <label>
+        <input name="response{{question.id}}" type="radio" value="2"/>
+        <span>No</span>
+      </label>
+      <label>
+        <input name="response{{question.id}}" type="radio" value="0" checked/>
+        <span>IDGAF</span>
+      </label>
+  {% endfor %}
+  <input type="submit" value="submit_poll"/>
+</form>
+{% endif %}
+<a href="{% url 'polls_delete' poll.id %}">Delete Poll</a>
 {% endblock %}

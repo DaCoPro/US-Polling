@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Poll
 from .forms import QuestionForm
+from .forms import ResponseForm
 
 class PollCreate(LoginRequiredMixin, CreateView):
   model = Poll
@@ -32,7 +33,9 @@ def polls_index(request):
 @login_required
 def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
-  return render(request, 'polls/detail.html', {'poll': poll})
+  userId = request.user
+  hasVoted = poll.hasVoted.split('&')
+  return render(request, 'polls/detail.html', {'poll': poll,'userId':str(userId.id),'hasVoted':hasVoted})
 
 @login_required
 def polls_edit(request, poll_id):
@@ -60,8 +63,34 @@ def add_question(request, poll_id):
     new_question.save()
   return redirect('edit', poll_id=poll_id)
 
+@login_required
+def polls_publish(request, poll_id):
+  poll = Poll.objects.get(id=poll_id)
+  poll.published = True
+  poll.save()
+  return render(request, 'polls/detail.html', {'poll': poll})
 
+@login_required
+def submit_poll(request, poll_id):
+  allresponse = ''
+  poll = Poll.objects.get(id=poll_id)
+  data = request.body.decode('utf-8').split('&')
 
+  for idx, x in enumerate(data):
+    if idx >0:
+      allresponse += x.split('=')[1]
+
+  new_response = ResponseForm().save(commit=False)
+  new_response.response = allresponse
+  new_response.poll_id = poll_id
+  new_response.save() 
+
+  poll.hasVoted += '&'+str(request.user.id)
+  poll.save()
+  #print(data[-1])
+  print(allresponse)
+  #print(request.body)
+  return redirect('detail', poll_id = poll_id)
 
 def signup(request):
   error_message = ''

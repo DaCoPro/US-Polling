@@ -11,37 +11,42 @@
 <div>{{ poll.content }}</div>
 </div>
 
+{% if not poll.published %}
 
 <div class="col s6">
-    <form action="{% url 'add_question' poll.id %}" method="POST">
-      {% csrf_token %}
-      <table>
-          {{ question_form.as_p  }}
-      </table>
-      <!-- {{ question.question }} -->
-      <input type="submit" value="Add question" class="btn">
-    </form>
-    <br>
-    <table class="striped">
-      <thead>
-        <tr>
-          <th>Questions</th>
-          <th>Choice</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for question in poll.question_set.all %}
-        <tr>
-          <td>{{question.question}}</td>
-          <td>{{question.get_meal_display}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
+  <form action="{% url 'add_question' poll.id %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ question_form.as_p  }}
     </table>
-  </div>    
+    <!-- {{ question.question }} -->
+    <input type="submit" value="Add question" class="btn">
+  </form>
+  <br>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Questions</th>
+        <th>Choice</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for question in poll.question_set.all %}
+      <tr>
+        <td>{{question.question}}</td>
+        <td>{{question.get_meal_display}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>    
 
+<form action="{% url 'polls_publish' poll.id %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Publish" class="btn">
+</form>
 
+{% endif %}
 
-
-<a href="{% url 'polls_delete' poll.id %}">Delete?</a>
+<a href="{% url 'polls_delete' poll.id %}">Delete Poll</a>
 {% endblock %}

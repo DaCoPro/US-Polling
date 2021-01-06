@@ -6,6 +6,9 @@
 {% for poll in polls %}
   <div><a href="{% url 'detail' poll.id %}">{{ poll.title }}</a></div>
   <div>{{ poll.abstract }}</div>
+  {% if not poll.published %}
+    <div><a href="{% url 'edit' poll.id %}">Edit Poll</a></div>
+  {% endif %}
 {% endfor %}
 
 {% endblock %}

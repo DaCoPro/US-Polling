@@ -34,9 +34,6 @@ class Response(models.Model):
   response = models.TextField(max_length=300)
   poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
 
-
-
-
 class Question(models.Model):
   question = models.TextField(max_length=300)
   poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
