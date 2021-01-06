@@ -1,12 +1,13 @@
+
 {% extends 'base.html' %}
 {% block content %}
+{% load index %}
 
 <h2>{{ poll.title }}</h2>
 <h4>{{ poll.abstract }}</h4>
 <h6>{{ poll.content }}</h6>
 
 
-<h2>{{poll_response}}</h2>
 {% if not userId in hasVoted %}
 
 <form action="{% url 'submit_poll' poll.id %}" method="POST">
@@ -33,8 +34,17 @@
 
 {% if userId in hasVoted %}
 
-<h4>Thanks for Voting!</h4>
+{% for question in poll.question_set.all %}
 
+      <tr>
+        <td>{{question.question}}</td>
+        {% with forloop.counter as key %}
+        <h3>{{ poll_response|index:forloop.counter0 }}</h3>
+        <h4>{{ key }}</h4>
+        {% endwith %}
+      </tr>
+
+{% endfor %}
 {% endif %}
 
 <a href="{% url 'polls_delete' poll.id %}">Delete Poll</a>

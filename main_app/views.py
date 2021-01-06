@@ -47,13 +47,11 @@ def polls_detail(request, poll_id):
       yes = 0
       no = 0
       idc = 0
-      
       for response in responses:
         question = response.response[idx]
-  
-        if question == '0': yes += 1
-        if question == '1': no += 1
-        if question == '2': idc += 1
+        if question == '1': yes += 1
+        if question == '2': no += 1
+        if question == '0': idc += 1
       poll_response.append([yes, no, idc])
     # responses = poll_response
   except:
