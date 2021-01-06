@@ -5,28 +5,30 @@
 <h4>{{ poll.abstract }}</h4>
 <h6>{{ poll.content }}</h6>
 
+
 <h2>{{poll_response}}</h2>
 {% if not userId in hasVoted %}
 
 <form action="{% url 'submit_poll' poll.id %}" method="POST">
   {% csrf_token %}
   {% for question in poll.question_set.all %}
-    <div>{{ question.question }}</div>
-      <label>
-        <input name="response{{question.id}}" type="radio" value="1"/>
-        <span>Yes</span>
-      </label>
-      <label>
-        <input name="response{{question.id}}" type="radio" value="2"/>
-        <span>No</span>
-      </label>
-      <label>
-        <input name="response{{question.id}}" type="radio" value="0" checked/>
-        <span>IDGAF</span>
-      </label>
+  <h5><strong>{{ question.question }}</strong></h5>
+  <label>
+    <input name="response{{question.id}}" type="radio" value="1"/>
+    <span>Yes</span>
+  </label>
+  <label>
+    <input name="response{{question.id}}" type="radio" value="2"/>
+    <span>No</span>
+  </label>
+  <label>
+    <input name="response{{question.id}}" type="radio" value="0" checked/>
+    <span>IDGAF</span>
+  </label>
   {% endfor %}
   <input type="submit" value="submit_poll"/>
 </form>
+
 {% endif %}
 
 {% if userId in hasVoted %}
@@ -34,5 +36,6 @@
 <h4>Thanks for Voting!</h4>
 
 {% endif %}
+
 <a href="{% url 'polls_delete' poll.id %}">Delete Poll</a>
 {% endblock %}
