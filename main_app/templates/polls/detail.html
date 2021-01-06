@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Poll Detail</h1>
+<h2>{{ poll.title }}</h2>
+<h4>{{ poll.abstract }}</h4>
+<h6>{{ poll.content }}</h6>
 
-<div>{{ poll.title }}</div>
-<div>{{ poll.abstract }}</div>
-<div>{{ poll.content }}</div>
-
+<h2>{{poll_response}}</h2>
 {% if not userId in hasVoted %}
 
 <form action="{% url 'submit_poll' poll.id %}" method="POST">
@@ -28,6 +27,12 @@
   {% endfor %}
   <input type="submit" value="submit_poll"/>
 </form>
+{% endif %}
+
+{% if userId in hasVoted %}
+
+<h4>Thanks for Voting!</h4>
+
 {% endif %}
 <a href="{% url 'polls_delete' poll.id %}">Delete Poll</a>
 {% endblock %}
