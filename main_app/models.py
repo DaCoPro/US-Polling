@@ -3,12 +3,6 @@ from django.urls import reverse
 from datetime import date
 from django.contrib.auth.models import User
 
-
-# class Items(models.Model):
-#   question = models.CharField(max_length=50)
-
-
-
 class Poll(models.Model):
   title = models.CharField(max_length=50)
   abstract = models.CharField(max_length=150)
@@ -20,17 +14,12 @@ class Poll(models.Model):
     default = 0
     )
   published = models.BooleanField(default = False)
-  
-
-  # items = models.ForeignKey(Items, on_delete=models.CASCADE)
-
 
   def __str__(self):
     return self.title
   
   def get_absolute_url(self):
     return reverse('detail', kwargs={'poll_id': self.id})
-
 
 class Response(models.Model):
   response = models.TextField(max_length=300)
