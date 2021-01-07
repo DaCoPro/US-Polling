@@ -23,6 +23,9 @@ class PollDelete(LoginRequiredMixin, DeleteView):
   success_url = '/polls/'
 
 def home(request):
+  if request.user.id:
+    return redirect(request, 'polls/index.html')
+
   return render(request, 'home.html')
 
 @login_required
