@@ -13,7 +13,8 @@ class Poll(models.Model):
   title = models.CharField(max_length=50)
   abstract = models.CharField(max_length=150)
   content = models.TextField(max_length=300)
-  author = models.TextField(max_length=150,default = 0)
+  author = models.TextField(max_length=150,default = 1)
+  user = models.ForeignKey(User, on_delete=models.CASCADE, default = 1)
   hasVoted = models.TextField(
     max_length=3000,
     default = 0

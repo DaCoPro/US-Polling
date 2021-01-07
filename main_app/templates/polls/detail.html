@@ -7,6 +7,10 @@
 <h4>{{ poll.abstract }}</h4>
 <h6>{{ poll.content }}</h6>
 
+<h6>{{ poll.user_id }}</h6>
+<h6>{{ userId }}</h6>
+<h6>{{ author }}</h6>
+
 
 {% if not userId in hasVoted %}
 <hr>
@@ -78,5 +82,8 @@
 
 <br>
 
+{% if not author %}
+<!-- {{ user_id }} -->
 <a href="{% url 'polls_delete' poll.id %}" class="btn dpoll">Delete Poll</a>
+{% endif %}
 {% endblock %}
