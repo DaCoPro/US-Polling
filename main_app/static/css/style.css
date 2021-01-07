@@ -120,3 +120,7 @@
     margin-right: calc(-50vw + 16px);
     padding: 0px 72px;
   }
+
+  .login {
+    text-align: center;
+  }
