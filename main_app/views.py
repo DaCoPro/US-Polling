@@ -24,7 +24,8 @@ class PollDelete(LoginRequiredMixin, DeleteView):
 
 def home(request):
   if request.user.id:
-    return redirect(request, 'polls/index.html')
+    polls = Poll.objects.all()
+    return render(request, 'polls/index.html', {'polls':polls})
 
   return render(request, 'home.html')
 
