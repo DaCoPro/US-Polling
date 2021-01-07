@@ -3,9 +3,40 @@
     overflow: hidden;
     position: relative;
   }
+  nav {
+    background-color: #c10000;
+  }
+  .htitle{
+      color :#0000ab
+  }
+  .ptitle{
+    color: #4545d2;
+  }
+  .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating){
+      color:red;
+  }
   #modded .progress.multi .determinate {
     float: left;
   }
+  [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after{
+    background-color: #2424de;
+  }
+  [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after{
+    border: 2px solid #3636bd;
+  }
+  .btn, .btn-large, .btn-small{
+    background-color: royalblue;
+  }
+  .dpoll{
+      background-color: red;
+  }
+  .btn:hover, .btn-large:hover, .btn-small:hover{
+    background-color: royalblue;
+  }
+  .dpoll:hover{
+    background-color: red;
+  }
+
   #modded .progress span {
     position: relative;
     float: left;

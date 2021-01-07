@@ -1,14 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>All Polls</h1>
+<h1 class="htitle"> All Polls</h1>
 
 {% for poll in polls %}
-  <div><a href="{% url 'detail' poll.id %}">{{ poll.title }}</a></div>
-  <div>{{ poll.abstract }}</div>
-  {% if not poll.published %}
-    <div><a href="{% url 'edit' poll.id %}">Edit Poll</a></div>
-  {% endif %}
+
+
+<div class="card horizontal">
+  <div class="card-stacked">
+    <div class="card-content">
+      <h5><a class="ptitle" href="{% url 'detail' poll.id %}">{{ poll.title }}</a></h5>
+      <p>{{ poll.abstract }}</p>
+    </div>
+    {% if not poll.published %}
+    <div class="card-action elink">
+      <a href="{% url 'edit' poll.id %}">Edit Poll</a>
+      <a href="#">This is a link</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+ 
 {% endfor %}
 
 {% endblock %}
