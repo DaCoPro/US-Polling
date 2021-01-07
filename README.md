@@ -40,5 +40,4 @@ Current Icebox:
 - Representative Status for restricting access to poll creation
 - Recording User Location for poll access (users would access only polls posted by their verified US Representatives)
 - Results page colors
-- Landing page fix
 - US Government adoption! 
