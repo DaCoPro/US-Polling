@@ -52,7 +52,8 @@ def polls_detail(request, poll_id):
         if question == '1': yes += 1
         if question == '2': no += 1
         if question == '0': idc += 1
-      poll_response.append([yes, no, idc])
+      # yes = (yes/(yes+no+idc)
+      poll_response.append([int(round((yes/(yes+no+idc))*100)), int(round((no/(yes+no+idc))*100)), int(round((idc/(yes+no+idc))*100))])
     # responses = poll_response
   except:
     responses = 'No Responses Yet'
