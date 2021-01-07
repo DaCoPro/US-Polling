@@ -9,11 +9,12 @@
 
 
 {% if not userId in hasVoted %}
-
+<hr>
 <form action="{% url 'submit_poll' poll.id %}" method="POST">
   {% csrf_token %}
   {% for question in poll.question_set.all %}
   <h5><strong>{{ question.question }}</strong></h5>
+  
   <label>
     <input name="response{{question.id}}" type="radio" value="1"/>
     <span>Yes</span>
@@ -24,10 +25,11 @@
   </label>
   <label>
     <input name="response{{question.id}}" type="radio" value="0" checked/>
-    <span>IDGAF</span>
+    <span>No opinion</span>
   </label>
   {% endfor %}
-  <input type="submit" value="submit_poll"/>
+  <hr>
+  <input type="submit" value="Submit Poll" class="btn"/>
 </form>
 
 {% endif %}
@@ -52,13 +54,13 @@
       <ul class="collapsible">
         <li>
           <div class="collapsible-header">
-            <label for="">Progress</label>
+            <label for="">Response</label>
             <div class="progress multi blue lighten-4">
               <div class="determinate amber" style="width: {{ poll_response|index:forloop.counter0|index:0 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:0 }}%</div>
               <div class="determinate blue" style="width: {{ poll_response|index:forloop.counter0|index:1 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:1 }}%</div>
               <div class="determinate green" style="width: {{ poll_response|index:forloop.counter0|index:2 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:2 }}%</div>
             </div>
-            <label for="">Progress</label>
+            <label for="">Response</label>
   
           </div>
         </li>
@@ -74,8 +76,7 @@
 
 
 
+<br>
 
-
-
-<a href="{% url 'polls_delete' poll.id %}">Delete Poll</a>
+<a href="{% url 'polls_delete' poll.id %}" class="btn dpoll">Delete Poll</a>
 {% endblock %}

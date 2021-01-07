@@ -27,14 +27,14 @@
     <thead>
       <tr>
         <th>Questions</th>
-        <th>Choice</th>
+        <th>Choices</th>
       </tr>
     </thead>
     <tbody>
       {% for question in poll.question_set.all %}
       <tr>
         <td>{{question.question}}</td>
-        <td>{{question.get_meal_display}}</td>
+        <td>Yes, No, No opinion</td>
       </tr>
       {% endfor %}
     </tbody>
