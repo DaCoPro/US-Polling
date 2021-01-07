@@ -7,13 +7,8 @@
 <h4>{{ poll.abstract }}</h4>
 <h6>{{ poll.content }}</h6>
 
-<h6>{{ poll.user_id }}</h6>
-<h6>{{ userId }}</h6>
-<h6>{{ author }}</h6>
-
-
-{% if not userId in hasVoted %}
 <hr>
+{% if not userId in hasVoted %}
 <form action="{% url 'submit_poll' poll.id %}" method="POST">
   {% csrf_token %}
   {% for question in poll.question_set.all %}
@@ -41,40 +36,27 @@
 {% if userId in hasVoted %}
 <div id="modded" class="row">
 		<div class="col s12">
-			<!-- <h5>Within individual collapsibles</h5> -->
-			<!-- <p>Click them to open them and view more details!</p> -->
 			
-			<div class="center-align"><div class="chip amber white-text">Yes</div><div class="chip blue white-text">No</div><div class="chip green white-text">I don't Know</div></div>
+			<div class="center-align"><div class="chip green white-text">Yes</div><div class="chip red white-text">No</div><div class="chip grey white-text">I don't Know</div></div>
 			{% for question in poll.question_set.all %}
 
-      <!-- <tr>
-        <td>{{question.question}}</td>
-        {% with forloop.counter as key %}
-        <h3>{{ poll_response|index:forloop.counter0 }}</h3>
-        <h4>{{ key }}</h4>
-        {% endwith %}
-      </tr> -->
       <h5>{{question.question}}</h5>
       <ul class="collapsible">
         <li>
           <div class="collapsible-header">
             <label for="">Response</label>
-            <div class="progress multi blue lighten-4">
-              <div class="determinate amber" style="width: {{ poll_response|index:forloop.counter0|index:0 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:0 }}%</div>
-              <div class="determinate blue" style="width: {{ poll_response|index:forloop.counter0|index:1 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:1 }}%</div>
-              <div class="determinate green" style="width: {{ poll_response|index:forloop.counter0|index:2 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:2 }}%</div>
+            <div class="progress multi grey lighten-4">
+              <div class="determinate green" style="width: {{ poll_response|index:forloop.counter0|index:0 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:0 }}%</div>
+              <div class="determinate grey" style="width: {{ poll_response|index:forloop.counter0|index:2 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:2 }}%</div>
+              <div class="determinate red" style="width: {{ poll_response|index:forloop.counter0|index:1 }}%; animation: grow 2s;">{{ poll_response|index:forloop.counter0|index:1 }}%</div>
             </div>
             <label for="">Response</label>
   
           </div>
         </li>
       </ul>
-
     {% endfor %}
-    
-
 		</div>
-
 </div>
 {% endif %}
 
@@ -83,7 +65,6 @@
 <br>
 
 {% if not author %}
-<!-- {{ user_id }} -->
 <a href="{% url 'polls_delete' poll.id %}" class="btn dpoll">Delete Poll</a>
 {% endif %}
 {% endblock %}

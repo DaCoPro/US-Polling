@@ -47,6 +47,7 @@
 </form>
 
 {% endif %}
+<br>
 
-<a href="{% url 'polls_delete' poll.id %}">Delete Poll</a>
+<a class ="btn dpoll" href="{% url 'polls_delete' poll.id %}">Delete Poll</a>
 {% endblock %}

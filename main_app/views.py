@@ -31,8 +31,12 @@ def home(request):
 
 @login_required
 def polls_index(request):
+  # isAuthor = 1
+  # userId = request.user
+  # if poll.user_id == userId.id:
+  #   isAuthor = 0
   polls = Poll.objects.all()
-  return render(request, 'polls/index.html', {'polls': polls})
+  return render(request, 'polls/index.html', {'polls': polls, 'author':request.user.id})
 
 @login_required
 def polls_detail(request, poll_id):
