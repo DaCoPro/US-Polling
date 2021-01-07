@@ -39,9 +39,7 @@ def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
   #cache for updating has_votes property
   userId = request.user
-  
   hasVoted = poll.hasVoted.split('&')
-
   #cache for results
   try:
     poll_response = []
@@ -56,9 +54,7 @@ def polls_detail(request, poll_id):
         if question == '1': yes += 1
         if question == '2': no += 1
         if question == '0': idc += 1
-      # yes = (yes/(yes+no+idc)
       poll_response.append([int(round((yes/(yes+no+idc))*100)), int(round((no/(yes+no+idc))*100)), int(round((idc/(yes+no+idc))*100))])
-    # responses = poll_response
   except:
     responses = 'No Responses Yet'
   return render(request, 'polls/detail.html', {'poll': poll,'userId':str(userId.id),'hasVoted':hasVoted, 'poll_response':poll_response})
@@ -66,24 +62,17 @@ def polls_detail(request, poll_id):
 @login_required
 def polls_edit(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
-    # toys_poll_doesnt_have = Toy.objects.exclude(id__in=poll.toys.all().values_list('id'))
   question_form = QuestionForm()
   return render(request, 'polls/edit.html', {
-    # pass the poll and question_form as context
     'poll': poll, 'question_form': question_form
-    # 'toys': toys_poll_doesnt_have
   })
 
   return render(request, 'polls/edit.html', {'poll': poll})
 
 @login_required
 def add_question(request, poll_id):
-	# create the ModelForm using the data in request.POST
   form = QuestionForm(request.POST)
-  # validate the form
   if form.is_valid():
-    # don't save the form to the db until it
-    # has the poll_id assigned
     new_question = form.save(commit=False)
     new_question.poll_id = poll_id
     new_question.save()
@@ -113,9 +102,6 @@ def submit_poll(request, poll_id):
 
   poll.hasVoted += '&'+str(request.user.id)
   poll.save()
-  #print(data[-1])
-  print(allresponse)
-  #print(request.body)
   return redirect('detail', poll_id = poll_id)
 
 def signup(request):
