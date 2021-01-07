@@ -37,10 +37,16 @@ def polls_index(request):
 @login_required
 def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
+  # print(dir(poll))
   #cache for updating has_votes property
   userId = request.user
   hasVoted = poll.hasVoted.split('&')
-  #cache for results
+
+  #cache for results\
+  isAuthor = 1
+  if poll.user_id == userId.id:
+    isAuthor = 0
+
   try:
     poll_response = []
     responses = Response.objects.filter(poll=poll_id)
@@ -57,7 +63,7 @@ def polls_detail(request, poll_id):
       poll_response.append([int(round((yes/(yes+no+idc))*100)), int(round((no/(yes+no+idc))*100)), int(round((idc/(yes+no+idc))*100))])
   except:
     responses = 'No Responses Yet'
-  return render(request, 'polls/detail.html', {'poll': poll,'userId':str(userId.id),'hasVoted':hasVoted, 'poll_response':poll_response})
+  return render(request, 'polls/detail.html', {'poll': poll,'userId':str(userId.id),'hasVoted':hasVoted, 'poll_response':poll_response,'author':isAuthor})
 
 @login_required
 def polls_edit(request, poll_id):
