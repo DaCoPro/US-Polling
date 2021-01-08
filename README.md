@@ -10,7 +10,9 @@ Created in collaboration by:
 - [Sabona Yusuf](https://github.com/sabona10)
 
 ## Preview
-IMAGE(S)
+![](https://i.imgur.com/FFfMH60.png)
+![](https://i.imgur.com/YxDZcs3.png)
+![](https://i.imgur.com/Wt4qcrB.png)
 ## Technologies Used
 US Polling was written in:
 
@@ -39,5 +41,4 @@ Current Icebox:
 
 - Representative Status for restricting access to poll creation
 - Recording User Location for poll access (users would access only polls posted by their verified US Representatives)
-- Results page colors
 - US Government adoption! 
