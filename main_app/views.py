@@ -10,6 +10,7 @@ from .models import *
 from .forms import QuestionForm
 from .forms import ResponseForm
 
+@login_required
 class PollCreate(LoginRequiredMixin, CreateView):
   model = Poll
   fields = ['title', 'abstract', 'content']
@@ -18,6 +19,7 @@ class PollCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
+@login_required
 class PollDelete(LoginRequiredMixin, DeleteView):
   model = Poll
   success_url = '/polls/'
@@ -34,7 +36,7 @@ def polls_index(request):
   polls = Poll.objects.all()
   return render(request, 'polls/index.html', {'polls': polls, 'author':request.user.id})
 
-# @login_required
+@login_required
 def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
  
