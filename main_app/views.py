@@ -41,8 +41,7 @@ def polls_index(request):
 @login_required
 def polls_detail(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
-  # print(dir(poll))
-  #cache for updating has_votes property
+ 
   userId = request.user
   hasVoted = poll.hasVoted.split('&')
 
@@ -93,6 +92,7 @@ def polls_publish(request, poll_id):
   poll = Poll.objects.get(id=poll_id)
   poll.published = True
   poll.save()
+  
   return render(request, 'polls/detail.html', {'poll': poll})
 
 @login_required
