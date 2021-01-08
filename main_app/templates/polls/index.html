@@ -5,25 +5,16 @@
 
 {% for poll in polls %}
 
-
 <div class="card horizontal">
   <div class="card-stacked">
     <div class="card-content">
       <h5><a class="ptitle" href="{% url 'detail' poll.id %}">{{ poll.title }}</a></h5>
       <p>{{ poll.abstract }}</p>
     </div>
-    {% if not poll.published %}
-    {% if poll.user_id ==  author%}
-      <div class="card-action elink">
-        <a href="{% url 'edit' poll.id %}">Edit Poll</a>
-      </div>
-    {% endif %}
     
-    {% endif %}
   </div>
 </div>
 
- 
 {% endfor %}
 
 {% endblock %}

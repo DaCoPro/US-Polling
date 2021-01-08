@@ -60,11 +60,16 @@
 </div>
 {% endif %}
 
-
-
 <br>
 
 {% if not author %}
+
 <a href="{% url 'polls_delete' poll.id %}" class="btn dpoll">Delete Poll</a>
+
+  {% if not poll.published %}
+
+  <a class="btn" href="{% url 'edit' poll.id %}">Edit Poll</a>
+
+  {% endif %}
 {% endif %}
 {% endblock %}
